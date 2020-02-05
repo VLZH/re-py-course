@@ -7,7 +7,7 @@
 
 module.exports = {
   docsSidebar: {
-    Общее: ["intro", "general/programs", "general/languages"],
+    Общее: ["intro", "general/languages"],
     Python: [],
     Дополнительное: ["additional/telegram_bot_workshop"]
   }
