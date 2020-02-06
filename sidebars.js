@@ -8,7 +8,12 @@
 module.exports = {
   docsSidebar: {
     Общее: ["intro", "general/languages"],
-    Python: [],
+    Python: [
+      "python/syntax",
+      "python/operators",
+      "python/statements",
+      "python/functions"
+    ],
     Дополнительное: ["additional/telegram_bot_workshop"]
   }
 };
