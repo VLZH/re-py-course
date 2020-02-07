@@ -9,6 +9,7 @@ export const Link = ({ href, title, subtitle, caption }) => {
         {subtitle ? (
           <span className="mdx_link_subtitle">{subtitle}</span>
         ) : null}
+        <span className="mdx_link_href">{href}</span>
       </a>
       <span className="mdx_link_cation">{caption}</span>
     </div>

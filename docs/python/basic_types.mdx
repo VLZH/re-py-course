@@ -109,13 +109,50 @@ animal_instance = Animal()
 print(str(animal_instance)) # "Animal class"
 ```
 
-### F-strings
+### Форматирование строк
 
-Очень частой задачей является подставлять значения в строки, в `Python 3.6` появился новый способ это делать, но прежде чем говорить про `f-strings`, стоит вспомнить пердыдущие способы
+Очень частой задачей является подставлять значения в строки, в `Python 3.6` появился новый способ это делать, но прежде чем говорить про `f-strings`, стоит вспомнить пердыдущие способы.
 
+#### Cтарые способы форматирования строк
+
+- Используя старый синтаксис (`fprint`)
+
+  ```python
+  "%s:%s" % ("a", "b") # 'a:b'
+  "%x:%x" % (1, 15) # '1:f'
+  ```
+
+  <Link
+    title="printf-style String Formatting - Python documentation"
+    href="https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting"
+  />
+
+- Используя метод строк `format`
+
+  ```python
+  "{}:{}".format("a", "b") # 'a:b'
+  "{:0b}:{}".format(300, "b") # '100101100:b'
+  ```
+
+  <Link
+    title="string - Python documentation"
+    href="https://docs.python.org/3/library/string.html"
+    caption="На этой странице вы найдете всевозможную информацию об форматировании строк... но чтиво конечно не из приятных"
+  />
+
+#### F-strings
+
+В последних версиях `python` вы наконец можете удобнее подставлять значения с троки использую синтаксис `f-strings`, выглядит это следующим образом:
+
+```python
+first_name = "Jonh"
+last_name = "Smith"
+print("{first_name} {last_name}") # John Smith
 ```
-""
-```
+<Link
+  title="Formatted string literals - Python documentation"
+  href="https://docs.python.org/3/reference/lexical_analysis.html#formatted-string-literals"
+/>
 
 ### Методы строк
 

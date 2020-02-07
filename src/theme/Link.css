@@ -5,6 +5,7 @@
 
 .mdx_link_wrapper .mdx_link {
   display: block;
+  text-decoration: none;
   padding: 10px;
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 3px;
@@ -15,15 +16,26 @@
   color: var(--ifm-heading-color);
   font-size: 1.3em;
 }
+
+.mdx_link_wrapper .mdx_link:hover .mdx_link_title {
+  text-decoration: underline;
+}
+
 .mdx_link_wrapper .mdx_link .mdx_link_subtitle {
   display: block;
+  color: var(--ifm-blockquote-color);
+}
+
+.mdx_link_wrapper .mdx_link .mdx_link_href {
+  display: block;
+  font-size: 0.8em;
   color: var(--ifm-blockquote-color);
 }
 
 .mdx_link_wrapper .mdx_link_cation {
   display: block;
   color: var(--ifm-blockquote-color);
-  font-size: .9em;
+  font-size: 0.9em;
   font-style: italic;
   padding: 0 5px;
 }
