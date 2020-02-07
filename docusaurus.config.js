@@ -11,8 +11,8 @@ module.exports = {
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/",
   favicon: "img/logo.png",
-  organizationName: "vlzh", // Usually your GitHub org/user name.
-  projectName: "Python basics course | IT-RUN", // Usually your repo name.
+  organizationName: "vlzh",
+  projectName: "Python basics course | IT-RUN",
   themeConfig: {
     navbar: {
       title: "Python Basics Course | IT-RUN",
@@ -49,12 +49,18 @@ module.exports = {
         //},
       ],
       logo: {
-        alt: "Facebook Open Source Logo",
-        src: "img/oss_logo.png",
-        href: "https://opensource.facebook.com/"
+        // alt: "Facebook Open Source Logo",
+        // src: "img/oss_logo.png",
+        // href: "https://opensource.facebook.com/"
       },
       // Please do not remove the credits, help to publicize Docusaurus :)
       copyright: `Copyright © ${new Date().getFullYear()}`
+    },
+    algolia: {
+      apiKey: "98ff9e4b7db0171d6e42450e1a49d62b",
+      appId: "STW7H9SYB2",
+      indexName: "course-python-basics",
+      algoliaOptions: {}
     }
   },
   presets: [
@@ -63,7 +69,8 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/vlzh/course-python-basics/edit/master/docs"
+          editUrl:
+            "https://github.com/vlzh/course-python-basics/edit/master/docs"
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css")
@@ -71,5 +78,5 @@ module.exports = {
       }
     ]
   ],
-  plugins: ['@docusaurus/plugin-ideal-image']
+  plugins: ["@docusaurus/plugin-ideal-image"]
 };
