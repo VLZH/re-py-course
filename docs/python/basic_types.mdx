@@ -49,6 +49,16 @@ bit_int = 0b1000 # 8
 hex_int = 0xFF # 255
 ```
 
+### Представление числа в другой системе счисления:
+
+Если мы хотим перевести число в шестнадцатиричную или двоичную строчку..., мы можем воспользоваться глобальными функциями `hex`, `bin`, `oct`
+
+```python
+print(hex(255)) # '0xff'
+print(bin(8))   # '0b1000'
+print(oct(8))   # '0o10'
+```
+
 ## Строки
 
 Для объявления строк в python используются:
@@ -89,6 +99,17 @@ print(string) # string1string2
 >     "Good luck!"
 > )
 > ```
+>
+> А вот второй способ:
+>
+> ```python
+> from textwrap import dedent
+> SOME_MESSAGE_STRING = dedent(f"""\
+>     Hello {name}
+>     Your account balance: {balance}
+>     Good luck!
+> """)
+> ```
 
 ### Использование класса `str`
 
@@ -107,6 +128,18 @@ class Animal:
         return "Animal class"
 animal_instance = Animal()
 print(str(animal_instance)) # "Animal class"
+```
+
+### Функция `repr`
+
+Нужна чтобы вывести питоновское представление объекта, используется для дебагинга
+
+```python
+class Foo:
+    def __repr__(self):
+        return "Foo<>"
+foo = Foo()
+repr(foo)
 ```
 
 ### Форматирование строк
@@ -149,6 +182,7 @@ first_name = "Jonh"
 last_name = "Smith"
 print("{first_name} {last_name}") # John Smith
 ```
+
 <Link
   title="Formatted string literals - Python documentation"
   href="https://docs.python.org/3/reference/lexical_analysis.html#formatted-string-literals"
@@ -158,7 +192,7 @@ print("{first_name} {last_name}") # John Smith
 
 Мы перечислим только некоторые из методов которые часто используются на практике:
 
-- `str.encode() -> bytes` - перевести строку в _"байтовую строчку"_
+- `str.encode() -> bytes` - перевести строку в `bytes` _"байтовую строчку"_
 
   ```python
   some_str = "some string"
@@ -177,6 +211,20 @@ print("{first_name} {last_name}") # John Smith
   ```
 - `str.upper() -> str` - привести символы к верхнему регистру
 - `str.format(*args, **kwargs) -> str` - Подставить в места подстановки значения
+
+Остальные примеры:
+
+```python
+print("  foo bar   ".strip()) # 'foo bar'
+print("foo bar".replace("b", "_")) # 'foo _ar'
+# Изменение регистра
+print("foo bar".title())    # 'Foo Bar'
+print("Foo Bar".swapcase()) # 'fOO bAR'
+# Выравнивание
+print("foo bar".center(18)) # '     foo bar      '
+print("foo bar".ljust(18))  #  'foo bar           '
+print("foo bar".rjust(18))  #  '           foo bar'
+```
 
 #### Официальная документация
 

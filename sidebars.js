@@ -13,7 +13,10 @@ module.exports = {
       "python/operators",
       "python/statements",
       "python/functions",
-      "python/basic_types"
+      "python/basic_types",
+      "python/fp",
+      "python/modules_and_packets",
+      "python/classes"
     ],
     Дополнительное: ["additional/telegram_bot_workshop"]
   }
