@@ -42,6 +42,31 @@ sqr_list = list(map(changer, LIST))
 print(sqr_list) # [1, 4, 9]
 ```
 
+Собственная реализация(пример):
+
+```python
+MOVIES = [
+    {
+        "id": 123
+    },
+    {
+        "id": 34224
+    }
+]
+
+def map(changer, iterable):
+    result = []
+    for i in iterable:
+        result.append(changer(i))
+    return result
+
+def changer(movie):
+    movie["is_changed"] = True
+    return movie
+
+print(map(changer, MOVIES))
+```
+
 ### filter
 
 `filter(function, iterable) -> iterator` - функция похожа на `map`, но она не изменяет значения в последовательности, а фильтрует их. Получает она:
