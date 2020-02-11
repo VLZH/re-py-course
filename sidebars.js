@@ -18,7 +18,10 @@ module.exports = {
       "python/modules_and_packets",
       "python/classes"
     ],
-    // Модули: ["modules/os"],
+    Модули: [
+      // "modules/os",
+      "modules/re"
+    ],
     Дополнительное: ["additional/telegram_bot_workshop", "additional/git"]
   }
 };
