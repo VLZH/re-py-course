@@ -19,6 +19,11 @@ module.exports = {
       "python/classes"
     ],
     Модули: ["modules/os", "modules/re"],
-    Дополнительное: ["additional/telegram_bot_workshop", "additional/git"]
+    Дополнительное: [
+      "additional/telegram_bot_workshop",
+      "additional/git",
+      "additional/recommended"
+    ],
+    Домашки: ["homeworks/farm"]
   }
 };
