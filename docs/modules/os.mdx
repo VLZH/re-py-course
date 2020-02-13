@@ -12,7 +12,9 @@ import Link from "@theme/Link";
 
 `os` - популярный модуль предоставляющий доступ к функционалу OS. Если вам надо удалить файл или создать папку... посмотреть содержимое переменных окружения, вам сюда!
 
-## Методы модуля
+## Методы модуля (Параметры процесса)
+
+Я перечислю только часть методов и свойств... чтобы было понятнее какую информацию может предоставлять модуль
 
 ### `os.environ`
 
@@ -24,9 +26,13 @@ import os
 print(os.environ.get("HOME")) # get - это стандартный метод словаря, если вы помните
 ```
 
-### `os.chdir(path)`
+### `os.getenv(key, default=None)`
 
-Метод поменяет текущую директорию на `path`.
+Вы бы могли получить переменные среды используя и `os.environ`, но как сказанно, содержимое `os.environ` формируется при старте вашей программы. Чтобы получать изменяющиеся переменные вам понадобится использовать `os.getenv()`
+
+### `os.getenv(key, value)`
+
+Установить переменную окружения
 
 ```python
 import os
@@ -34,8 +40,109 @@ import os
 os.chdir(os.environ("HOME"))) # Текущая директория будет изменена на домашнюю директорию пользователя
 ```
 
+### `os.getgid() -> str`
+
+Получит `id` группы пользоватея
+
+```python
+import os
+print(os.getgit()) # 20
+```
+
+### `os.getuid() -> str`
+
+Получит `id` пользователя
+
+```python
+import os
+print(os.getuit()) # 501
+```
+
+### `os.getpid() -> str`
+
+Получить `id` текущего процесса.
+
+```python
+import os
+print(os.getpid()) # 501134
+```
+
+### `os.getppid() -> str`
+
+Получить `id` родительского процесса.
+
+```python
+import os
+print(os.getppid()) # 500000
+```
+
+## Методы модуля (Файловые дескрипторы)
+
+> TODO: описать методы
+
+## Работа с файлами и директориями
+
+### `os.access(path, mode, *, dir_fd=None, effective_ids=False, follow_symlinks=True) -> bool`
+
+Проверка доступности файла или директории, проверяется возможность совершить какие-то действия, для того чтобы перечислить что мы хотим сделать с файлом/директорией надо передать параметр `mode`.
+
+#### Значения передаваемые в `mode`
+
+- `os.F_OK` - Проверка существования пути
+- `os.R_OK` - Можем ли мы читать по этому пути
+- `os.W_OK` - Можем ли мы писать по этому пути
+- `os.X_OK` - Можем ли мы запускать исполняемый файл по этому пути
+
+```python
+import os
+print(os.access("./somefile", os.F_OK | os.R_OK)) # Выесняем существует ли файл и можем ли мы в него писать
+```
+
+### `os.chdir(path)`
+
+Метод поменяет текущую директорию на `path`.
+
+### `os.chmod(path, mode, *, dir_fd=None, follow_symlinks=True)`
+
+Изменить мод файла(права)
+
+### `os.chown(path, uid, gid, *, dir_fd=None, follow_symlinks=True)`
+
+Изменить хозяина файла
+
 ### `os.getcwd() -> str`
 
 Метод вернет текущую директорию.
 
-### `os.getcwd() -> str`
+### `os.scandir(path='.') -> Iterator[os.DirEntry]`
+
+Получить итератор по содержимому директории. Из итератора мы будем получать объекты типа: `os.DirEntry`.
+Если передан не путь до директории вы получите ошибку `NotADirectoryError`
+
+```python
+with os.scandir(path) as it:
+    for entry in it:
+        if not entry.name.startswith('.') and entry.is_file():
+            print(entry.name)
+```
+
+#### `os.DirEntry`
+
+Давайте перечислим аттрибуты экземпляров этого класса
+
+- `DirEntry.name` - Имя директории/файла
+- `DirEntry.path` - Полный путь до директории или файла
+- `DirEntry.is_dir(*, follow_symlinks=True)` - Директория ли это?
+- `DirEntry.is_file(*, follow_symlinks=True)` - Файл ли это?
+- `DirEntry.is_is_symlink()` - Ссылка ли это?
+- `DirEntry.stat()` - Получить информацию о файле
+
+### `os.stat(path, *, dir_fd=None, follow_symlinks=True)`
+
+Получить информацию о файле по пути `path`.
+
+### `os.walk(top, topdown=True, onerror=None, followlinks=False)`
+
+Позволяет пройтись по дереву директорий и получить из каждой содержащиеся файлы или папки.
+
+> TODO: Дописать с примерами

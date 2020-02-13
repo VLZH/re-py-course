@@ -4,6 +4,7 @@ title: Модуль re
 ---
 
 import Link from "@theme/Link";
+import IdealImage from "@theme/IdealImage";
 
 <Link
   title="os - Python documentation"
@@ -11,50 +12,91 @@ import Link from "@theme/Link";
 />
 
 <Link
-    title="Regex101"
-    href="https://regex101.com/"
-    caption="Сервис позволяющий визуально/онлайн проверять наши регулярки"
+  title="Regex101"
+  href="https://regex101.com/"
+  caption="Сервис позволяющий визуально/онлайн проверять наши регулярки"
 />
 
 Модуль `re` позволяет работать нам с регулярными выражениями.
 
-**Регулярные выражения(Regular expression)** - ормальный язык поиска и осуществления манипуляций с подстроками в тексте, основанный на использовании метасимволов. Для поиска используется строка-образец _("шаблон", "маска")_, состоящая из символов и метасимволов и задающая правило поиска. Для манипуляций с текстом дополнительно задаётся строка замены, которая также может содержать в себе специальные символы. 
+**Регулярные выражения(Regular expression)** - ормальный язык поиска и осуществления манипуляций с подстроками в тексте, основанный на использовании метасимволов. Для поиска используется строка-образец _("шаблон", "маска")_, состоящая из символов и метасимволов и задающая правило поиска. Для манипуляций с текстом дополнительно задаётся строка замены, которая также может содержать в себе специальные символы.
 
 Если попроще, то регулярные выражения позволяют нам находить какие-то последовательности символов тексте, а для того чтобы описать эту последовательности используется специальный синтаксис описания маски.
 
+Для того чтобы детальнее ознакомиться с синтаксисом шаблонов, советую ознакомиться со следующим видео:
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/_pLpx6btq6U"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+## Шпаргалка
+
+<IdealImage quality={95} img={require("./re/regexp.png")} />
+
+### Особые для `python` мета-символы
+
+| Символ    | Описание           |
+| --------- | ------------------ |
+| ?P<name\> | Именованная группа |
+
 ## Функции модуля
 
-- `re.compile(pattern: str, flags=0) -> Pattern`
+### `re.compile(pattern: str, flags=0) -> Pattern`
 
-    Позволяет нам скомпилировать `pattern` в объект регулярного выражения, делается это для производительности и удобства.
+Позволяет нам скомпилировать `pattern` в объект регулярного выражения, делается это для производительности и удобства.
 
-- `re.search(pattern, string, flags=0) -> None | Match`
+```python
+HELLO_WORLD_RE = re.compile("Hello\s+?World")
+match = HELLO_WORLD_RE.search("-Hello World-")
+if match:
+  print(match.group(0))
+```
 
-    Найти вхождение паттерна в строке, в любом месте. Метод возвращает объект совпадения `Match`
+### `re.search(pattern, string, flags=0) -> None | Match`
 
-- `re.match(pattern, string, flags=0) -> None | Match`
+Найти вхождение паттерна в строке, в любом месте. Метод возвращает объект совпадения `Match`
 
-    Найти вхождение паттерна в строке, в любом месте. Метод возвращает объект совпадения `Match`
+### `re.match(pattern, string, flags=0) -> None | Match`
 
-- `re.fullmatch(pattern, string, flags=0) -> None | Match`
+Найти вхождение паттерна в строке, в любом месте. Метод возвращает объект совпадения `Match`
 
-    Вернет объект совпадения если только pattern полностью совпадает со строкой
+### `re.fullmatch(pattern, string, flags=0) -> None | Match`
 
-- `re.split(pattern, string, maxsplit=0, flags=0) -> List[str]`
+Вернет объект совпадения если только pattern полностью совпадает со строкой
 
-    Разбить строку на подстроки по какому-то паттерну.
+### `re.split(pattern, string, maxsplit=0, flags=0) -> List[str]`
 
-- `re.findall(pattern, string, flags=0) -> List[str]`
+Разбить строку на подстроки по какому-то паттерну.
 
-    Найти все вхождения паттерна в строке. Обратите внимание, что возвращается не список объектов класса `Match` a список строк.
+### `re.findall(pattern, string, flags=0) -> List[str]`
 
-- `re.finditer(pattern, string, flags=0) -> Iterator[Match]`
+Найти все вхождения паттерна в строке. Обратите внимание, что возвращается не список объектов класса `Match` a список строк.
 
-    Возвращает итератор по `Match` объектам.
+```python
+TEXT = "hi hi hi"
+HI_RE = re.compile("hi")
+print(HI_RE.findall(TEXT)) # ['hi', 'hi', 'hi']
+```
 
-- `re.sub(pattern, repl, string, count=0, flags=0) -> str`
+### `re.finditer(pattern, string, flags=0) -> Iterator[Match]`
 
-    Удобный метод позволяющий сделать замену в строке.
+Возвращает итератор по `Match` объектам.
+
+```python
+TEXT = "hi hi hi hi hi hi hi hi hi hi hi hi"
+HI_RE = re.compile("hi")
+for m in HI_RE.finditer(TEXT):
+    print(m)
+```
+
+### `re.sub(pattern, repl, string, count=0, flags=0) -> str`
+
+Удобный метод позволяющий сделать замену в строке.
 
 ## class Pattern
 
@@ -63,3 +105,75 @@ import Link from "@theme/Link";
 ## class Match
 
 Это объект совпадения из которого мы можем получить всю дополнительную информацию о нем.
+
+### `Match.group([group1, ...])`
+
+Получение группы по ее индексу либо имени.
+
+```python
+import re
+PATTER_WITH_NAME =  re.compile(r"^(?P<first_name>\w+?)\s+(?P<last_name>\w+?)$")
+match = PATTER_WITH_NAME.match("John Dow")
+first_name = match.group("first_name")
+last_name = match.group("last_name")
+```
+
+### `Match.groups(default=None)`
+
+Получение всех подгрупп в виде `tuple`. Значит, что вернутся все подгруппы, но основная группа, с индексом `0` не вернется
+
+```python
+import re
+PATTER_WITH_NAME =  re.compile(r"^(?P<first_name>\w+?)\s+(?P<last_name>\w+?)$")
+match = PATTER_WITH_NAME.match("John Dow")
+if match:
+    print(match.groups()) # ('John', 'Dow')
+```
+
+### `Match.groupdict(default=None)`
+
+Получить все именованные подгруппы в виде словаря(`dict`).
+
+```python
+import re
+PATTER_WITH_NAME =  re.compile(r"^(?P<first_name>\w+?)\s+(?P<last_name>\w+?)$")
+match = PATTER_WITH_NAME.match("John Dow")
+if match:
+    print(match.groupdict()) # {'first_name': 'John', 'last_name': 'Dow'}
+```
+
+### `Match.start(group)` и `Match.end(group)`
+
+Получить позицию начала и конца группы в совпадении.
+Если группа не найдена - выскочит ошибка `IndexError`.
+Если группа объявлена, но не имеет совпадений в тексте - значением ее позиции будет `-1`.
+
+```python
+import re
+PATTER_WITH_NAME =  re.compile(r"^(?P<first_name>\w+?)\s+(?P<last_name>\w+?)$")
+match = PATTER_WITH_NAME.match("John Dow")
+if match:
+    print(match.start("first_name")) # 0
+    print(match.end("first_name")) # 4
+    print(match.start("last_name")) # 5
+    print(match.end("last_name")) # 8
+```
+
+### `Match.span(group)`
+
+Объединяет в себе методы `start` и `end` и возвращает значения в виде `tuple` `(start_index, end_index)`
+
+```python
+import re
+PATTER_WITH_NAME =  re.compile(r"^(?P<first_name>\w+?)\s+(?P<last_name>\w+?)$")
+match = PATTER_WITH_NAME.match("John Dow")
+if match:
+    print(match.start()) # 0
+    print(match.end()) # 8
+```
+
+### `Match.pos` и `Match.endpos` - Значения `pos`, которые были указаны при вызове метода `search` или `match`.
+
+### `Match.re` - Ссылка на регулярное выражение.
+
+### `Match.string` - Ссылка на строку.
