@@ -22,7 +22,8 @@ module.exports = {
     Дополнительное: [
       "additional/telegram_bot_workshop",
       "additional/git",
-      "additional/recommended"
+      "additional/recommended",
+      "additional/protocols"
     ],
     Домашки: ["homeworks/farm"]
   }
