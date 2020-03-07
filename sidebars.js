@@ -24,6 +24,6 @@ module.exports = {
                 items: ["additional/db/db", "additional/db/sql"]
             }
         ],
-        Домашки: ["homeworks/farm"]
+        Домашки: ["homeworks/farm", "homeworks/linkshorter"]
     }
 };
