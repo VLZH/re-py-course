@@ -60,3 +60,35 @@ user_id INT,
 create_at: TIMESTAMP
 );
 ```
+
+#### Шаги
+
+-   [x] Новый `Route('/')` который возвращает главную страницу сгенерированную шаблонизотором `Jinja2`
+-   [x] Создать сервис `LinksService` с методами:
+    -   `getAllLinks()`
+    -   `createNewLink(original_url)`
+-   [ ] Реализовать метод `createNewLink(original_url)`, метод должен создать новую запись в БД.
+-   [ ] Новая `view-function`(например: `create_link_handler(req) -> res`).
+-   [ ] Добавить новый роут `Route('/create_link')`.
+-   [ ] Настроить отправку формы на URI `/create_link`.
+
+    ```html
+    <form action="/create_link" method="POST">
+        <!-- .... -->
+    </form>
+    ```
+
+#### Подсказки
+
+Создание записи в таблице `links`:
+
+```sql
+INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);
+```
+
+Как это делать через `psycopg2`:
+
+```python
+cur = connection.cursor()
+cur.execute("INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);", original_url, generated_code, datetime.now())
+```
