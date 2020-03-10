@@ -9,47 +9,28 @@ import IdealImage from "@theme/IdealImage";
 Вы должны реализоваться функционал следующего сайта:
 
 <Link
-    title="Kutt.it"
-    href="https://kutt.it/"
-    image="https://i.gzn.jp/img/2019/12/29/nuttit/00_m.png"
+  title="Kutt.it"
+  href="https://kutt.it/"
+  image="https://i.gzn.jp/img/2019/12/29/nuttit/00_m.png"
 />
 
 Работа состоит из 2 частей:
 
--   Базовый функционал сокращения ссылок. Список уже сгенерированных ссылок будет глобальным(_виден всем посетителям_)
--   Регистрация/авторизация пользователей.
+- Базовый функционал сокращения ссылок. Список уже сгенерированных ссылок будет глобальным(_виден всем посетителям_)
+- Регистрация/авторизация пользователей.
 
 ### Базовый функционал
 
 Для реализации базового функционала вам предстоить сверстать главную страницу состоящую из:
 
--   Формы добавления новых ссылок
-    <IdealImage img={require("./linkshorter/preview1.png")} />
--   Таблицы уже созданных ссылок
-    <IdealImage img={require("./linkshorter/preview2.png")} />
--   Поздравительного сообщения о создании нового
-    <IdealImage img={require("./linkshorter/preview3.png")} />
+- Формы добавления новых ссылок
+  <IdealImage img={require("./linkshorter/preview1.png")} />
+- Таблицы уже созданных ссылок
+  <IdealImage img={require("./linkshorter/preview2.png")} />
+- Поздравительного сообщения о создании нового
+  <IdealImage img={require("./linkshorter/preview3.png")} />
 
-#### Роуты которые следует реализовать
-
--   `/` - Главная страница
-    Если в `URL` присутствует параметр `success=<link_id>` вы должны показать страницу с блоком поздравления о создании новой ссылки.
-
-    Т.е при открытии например такой страницы: `/?success=1` вам покажется сообщение о том что ссылка c `id==1` успешно создана и будет показана сама ссылка(_сокращенная_).
-
--   `/create_link` - Отправляя `POST` запрос по этому адресу с передачей следующего `json`'на в качестве тела запроса:
-
-    ```json
-    {
-        "url": "<some_url>"
-    }
-    ```
-
-    Вы создадите новую запись в таблице `links` и после ее создания вас должно перекинуть на `/?success=<created_link_id>`
-
--   `/<code>` - Вместо `<code>` будет подставлен код из 6 символов. При переходе по такой ссылке вы должны получить ссылку из таблицы `links` по ее колонке `code` и вернуть пользователю ответ с статусом `302` и заголовком `Location` в который будет подставлен оригинальный УРЛ.
-
-#### Схема базы данных на первом этапе
+### Создание таблицы в базе данных
 
 ```sql
 CREATE TABLE links (
@@ -57,38 +38,83 @@ id SERIAL PRIMARY KEY,
 original_url TEXT,
 code VARCHAR(6),
 user_id INT,
-create_at: TIMESTAMP
+create_at TIMESTAMP
 );
 ```
 
+### Что следует реализовать
+
+В первую очередь вам следует сверстать описанную страницу и добавить роуты:
+
+- `/` - Главная страница
+  Если в `URL` присутствует параметр `success=<link_id>` вы должны показать страницу с блоком поздравления о создании новой ссылки.
+
+  Т.е при открытии например такой страницы: `/?success=1` вам покажется сообщение о том что ссылка c `id==1` успешно создана и будет показана сама ссылка(_сокращенная_).
+
+- `/create_link` - Создание ссылки в таблице `links`. При отправки формы на этот адрес, в таблице создается новая ссылка, а после того как линк создан, возвращается ответ с кодом `302(REDIRECT)` и заголовком `Location: /create_link?success=<id созданной ссылки>`.
+
+  Данные формы будут переданы в формате `application/x-www-formurlencoded`. Вот вам мини-версия формы:
+
+  ```html
+  <form action="/create_link" method="POST">
+    <input name="url" />
+  </form>
+  ```
+
+  При отправке подобной формы.. на сервер придет примерно такой запрос:
+
+  ```
+  POST /create_link HTTP/1.1
+  Content-Type: application/x-www-formurlencoded
+
+  url=<содержимое поля url>
+  ```
+
+  > #### Подсказка #1
+  >
+  > Создание записи в таблице `links`:
+  >
+  > ```sql
+  > INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);
+  > ```
+  >
+  > Как это делать через `psycopg2`:
+  >
+  > ```python
+  > cur = connection.cursor()
+  > cur.execute("INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);", original_url, generated_code, datetime.now())
+  > connection.commit()
+  > ```
+
+  > #### Подсказка #2
+  >
+  > Для того чтобы обработать данные формы в формате `application/x-www-formurlencoded` вы могли бы воспользоваться регулярными выражениями и это даже работало бы. Но в стандартной библиотеке `Python` есть уже готовый метод для парсинга строк в формате `application/x-www-formurlencoded`.
+  >
+  > Для парсинга тела запроса мы можем воспользоваться библиотекой `urllib.parse`
+  >
+  > <Link
+  >   title="urllib.parse.parse_qs - Python documentation"
+  >   href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.parse_qs"
+  > />
+  >
+  > ```python
+  > from urllib.parse import parse_qs
+  >
+  > example_qs = "url=test"
+  > print(parse_qs(example_qs) # {"url": ["test"]}
+  > example_qs = "url=test&foo=test2"
+  > print(parse_qs(example_qs) # {"url": ["test"], "foo": ["test2"]}
+  > ```
+
+* `/<code>` - Вместо `<code>` будет подставлен код из 6 символов. При переходе по такой ссылке вы должны получить ссылку из таблицы `links` по ее колонке `code` и вернуть пользователю ответ с статусом `302` и заголовком `Location` в который будет подставлен оригинальный УРЛ.
+
 #### Шаги
 
--   [x] Новый `Route('/')` который возвращает главную страницу сгенерированную шаблонизотором `Jinja2`
--   [x] Создать сервис `LinksService` с методами:
-    -   `getAllLinks()`
-    -   `createNewLink(original_url)`
--   [ ] Реализовать метод `createNewLink(original_url)`, метод должен создать новую запись в БД.
--   [ ] Новая `view-function`(например: `create_link_handler(req) -> res`).
--   [ ] Добавить новый роут `Route('/create_link')`.
--   [ ] Настроить отправку формы на URI `/create_link`.
-
-    ```html
-    <form action="/create_link" method="POST">
-        <!-- .... -->
-    </form>
-    ```
-
-#### Подсказки
-
-Создание записи в таблице `links`:
-
-```sql
-INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);
-```
-
-Как это делать через `psycopg2`:
-
-```python
-cur = connection.cursor()
-cur.execute("INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);", original_url, generated_code, datetime.now())
-```
+- [x] Новый `Route('/')` который возвращает главную страницу сгенерированную шаблонизотором `Jinja2`
+- [x] Создать сервис `LinksService` с методами:
+  - `getAllLinks()`
+  - `createNewLink(original_url)`
+- [ ] Реализовать метод `createNewLink(original_url)`, метод должен создать новую запись в БД.
+- [ ] Новая `view-function`(например: `create_link_handler(req) -> res`).
+- [ ] Добавить новый роут `Route('/create_link')`.
+- [ ] Настроить отправку формы на URI `/create_link`.
