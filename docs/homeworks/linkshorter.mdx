@@ -37,8 +37,8 @@ CREATE TABLE links (
 id SERIAL PRIMARY KEY,
 original_url TEXT,
 code VARCHAR(6),
-user_id INT,
-create_at TIMESTAMP
+views_count INT,
+create_at TIMESTAMP,
 );
 ```
 
@@ -82,7 +82,8 @@ create_at TIMESTAMP
   >
   > ```python
   > cur = connection.cursor()
-  > cur.execute("INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s);", original_url, generated_code, datetime.now())
+  > cur.execute("INSERT INTO links (original_url, code, create_at) VALUES (%s, %s, %s) RETURNING id, code;", (original_url, generated_code, datetime.now()))
+  > (link_id, link_code) = cur.fetchone()
   > connection.commit()
   > ```
 
@@ -101,9 +102,9 @@ create_at TIMESTAMP
   > from urllib.parse import parse_qs
   >
   > example_qs = "url=test"
-  > print(parse_qs(example_qs) # {"url": ["test"]}
+  > print(parse_qs(example_qs)) # {"url": ["test"]}
   > example_qs = "url=test&foo=test2"
-  > print(parse_qs(example_qs) # {"url": ["test"], "foo": ["test2"]}
+  > print(parse_qs(example_qs)) # {"url": ["test"], "foo": ["test2"]}
   > ```
 
 * `/<code>` - Вместо `<code>` будет подставлен код из 6 символов. При переходе по такой ссылке вы должны получить ссылку из таблицы `links` по ее колонке `code` и вернуть пользователю ответ с статусом `302` и заголовком `Location` в который будет подставлен оригинальный УРЛ.
