@@ -29,6 +29,6 @@ module.exports = {
         "flask/intro",
         "flask/hello_world",
     ],
-    Домашки: ["homeworks/farm", "homeworks/linkshorter", "homeworks/mytable"]
+    Домашки: ["homeworks/farm", "homeworks/linkshorter", "homeworks/blog"]
   }
 };
