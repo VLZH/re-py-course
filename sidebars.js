@@ -1,6 +1,6 @@
 module.exports = {
   docsSidebar: {
-    Общее: ["intro", "general/languages"],
+    Общее: ["intro", "general/programs", "general/types", "general/languages"],
     Python: [
       "python/syntax",
       "python/operators",
@@ -10,7 +10,7 @@ module.exports = {
       "python/fp",
       "python/modules_and_packets",
       "python/classes",
-      "python/pip"
+      "python/pip",
     ],
     Модули: ["modules/os", "modules/re"],
     Дополнительное: [
@@ -22,13 +22,10 @@ module.exports = {
       {
         type: "category",
         label: "DB",
-        items: ["additional/db/db", "additional/db/sql"]
-      }
+        items: ["additional/db/db", "additional/db/sql"],
+      },
     ],
-    Фреймворки: [
-        "flask/intro",
-        "flask/hello_world",
-    ],
-    Домашки: ["homeworks/farm", "homeworks/linkshorter"]
-  }
+    Фреймворки: ["flask/intro", "flask/hello_world"],
+    Домашки: ["homeworks/farm", "homeworks/linkshorter"],
+  },
 };
