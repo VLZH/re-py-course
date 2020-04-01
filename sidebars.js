@@ -25,7 +25,16 @@ module.exports = {
         items: ["additional/db/db", "additional/db/sql"],
       },
     ],
-    Фреймворки: ["flask/intro", "flask/hello_world"],
-    Домашки: ["homeworks/farm", "homeworks/linkshorter"],
-  },
+    Фреймворки: [
+        "flask/intro",
+        "flask/hello_world",
+    ],
+    Домашки: [
+      "homeworks/farm", 
+      "homeworks/linkshorter", 
+      "homeworks/blog" ,
+      "homeworks/mydatabase",
+      "homeworks/hello"
+    ]
+  }
 };
