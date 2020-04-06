@@ -34,7 +34,8 @@ module.exports = {
       "homeworks/linkshorter", 
       "homeworks/blog" ,
       "homeworks/mydatabase",
-      "homeworks/hello"
+      "homeworks/hello",
+      "homeworks/calculator"
     ]
   }
 };
