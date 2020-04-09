@@ -35,7 +35,8 @@ module.exports = {
       "homeworks/blog" ,
       "homeworks/mydatabase",
       "homeworks/hello",
-      "homeworks/calculator"
+      "homeworks/calculator",
+      "homeworks/season"
     ]
   }
 };
