@@ -321,31 +321,3 @@ else:
     print("Такого слова нет")
 ```
 
-### Логические операторы (and/or/not)
-- Логический оператор or - возвращает тот операнд который равен True
-- Логический оператор and - возвращает тот операнд который равен False
-- Логический оператор not - он инверсирует/переворачивает значение
-####  Обратите внимание!
-Операторы просматриваются слева на право
-
-
-```python
-a = 5
-b = 6
-
-if (a > 5) and (b > 5):
-    print("'a' and 'b' more then 5")
-
-if (a > 5) or (b > 5):
-    print("'a' or 'b' more then 5")
-#'a' or 'b' more then 5    
-```
-```python
-command = input("Your command >")
-if command == "add" and command != "sub" and command != "mul" and command != "div":
-    print("Вы ввели некорректное значение")
-else:
-    print("Ваше значение:" + command)
-#Your command >div
-#Ваше значение:div
-```
