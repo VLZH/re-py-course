@@ -6,7 +6,11 @@ module.exports = {
       "python/operators",
       "python/statements",
       "python/functions",
-      "python/basic_types",
+      {
+        type: "category",
+        label: "Типы",
+        items: ["python/primitive_types", "python/sequances", "python/dicts"],
+      },
       "python/fp",
       "python/modules_and_packets",
       "python/classes",
@@ -26,17 +30,20 @@ module.exports = {
       },
     ],
     Фреймворки: [
-        "flask/intro",
-        "flask/hello_world",
+      "flask/intro",
+      "flask/hello_world",
+      "django/django",
+      "django/first_steps",
     ],
     Домашки: [
-      "homeworks/farm", 
-      "homeworks/linkshorter", 
-      "homeworks/blog" ,
-      "homeworks/mydatabase",
       "homeworks/hello",
       "homeworks/calculator",
-      "homeworks/season"
-    ]
-  }
+      "homeworks/season",
+      "homeworks/farm",
+      "homeworks/mydatabase",
+      "homeworks/linkshorter",
+      "homeworks/blog",
+      "homeworks/final_project_requirements",
+    ],
+  },
 };
