@@ -34,6 +34,7 @@ module.exports = {
       "flask/hello_world",
       "django/django",
       "django/first_steps",
+      "django/orm",
     ],
     Домашки: [
       "homeworks/hello",

@@ -1,0 +1,98 @@
+---
+id: orm
+title: Django ORM
+---
+
+import IdealImage from "@theme/IdealImage";
+
+**ORM** (англ. **Object-Relational Mapping**, рус. объектно-реляционное отображение, или преобразование) — технология программирования, которая связывает базы данных с концепциями объектно-ориентированных языков программирования, создавая «виртуальную объектную базу данных». Существуют как проприетарные, так и свободные реализации этой технологии.
+
+## Настройка базы данных
+
+### Запуск DB
+
+В ходе обучения мы уже начали работать с базой `Postgresql`, для запуска базы мы будем испльзовать `Docker`.
+
+```sh
+# Стартуем базу
+mkdir pgdata # директория которая будет хранить данные базы даже если контейнер будет удален
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=some_password -v ${PWD}/pgdata:/var/lib/postgresql/data postgres
+```
+
+### Конфигурация
+
+Соединение с базой настраивается в файле `settings.py`. Для настройки надо поменять переменную `DATABASES`.
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+```
+
+> Как можно заметить соединений с базами может быть несколько
+
+## Модели
+
+**Django ORM** позволяет нам описывать структуру базы данных с помощью классов.
+
+- Описывая модели - мы описываем таблицы в нашей DB.
+- Описывая поля моделей - мы описываем колонки и их типы в таблицах.
+
+Основной модуль, который вы будете использовать при работе с базой это `django.db`. Для описания модели вам понадобится использовать класс `django.db.Model` и поля из `django.db.fields`.
+
+```python
+from django.db.models import Model
+from django.db.models.fields import TextField, CharField, AutoField
+
+
+class Post(Model):
+    id = AutoField()
+    title = CharField()
+    description = TextField()
+```
+
+## Поля моделей
+
+Классы полей в Django соответствуют некоторым типам в СУБД.
+
+| Django filed type | Postgres type |
+| :---------------- | :------------ |
+| `AutoField`       | SERIAL        |
+| `BooleanFiled`    | BOOLEAN       |
+| `CharField`       | VARCHAR(255)  |
+| `DateField`       | DATE          |
+| `TimeField`       | TIME          |
+| `DateTimeField`   | TIMESTAMP     |
+| `DurationField`   | interval      |
+| `DecimalField`    | DECIMAL       |
+| `FloatField`      | real          |
+| `TextField`       | TEXT          |
+
+## Миграции
+
+<IdealImage img={require("./orm/migrations.png")} />
+
+В примере выше мы описали модель(_таблицу_) но база сама не изменится в соответствии с этой моделью, нам надо сгенерировать **миграцию**.
+
+**Миграция** - код описывающий изменения в базе данных, после изменения модели нам, зачастую, требуется привести базу к состоянию описанному в моделе, для этого генерируется миграция.
+
+```sh
+# Генерация миграций
+python3 ./manage.py createmigrations
+```
+
+При вызове этой комманды произойдет проверка соответствия базы и кода, если требудется - будут сгенерированны миграции.
+
+Чтобы применить миграцию надо набрать:
+
+```sh
+# Применение миграций
+python3 ./manage.py migrate
+```

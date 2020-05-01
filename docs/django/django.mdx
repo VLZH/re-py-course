@@ -3,7 +3,7 @@ id: django
 title: Django
 ---
 
-import Link from "@theme/Link"
+import Link from "@theme/Link";
 
 Мы уже ознакомились с фреймворком `Flask`, теперь нам предстоит изучить уже действительно большой фреймворк в полном понимании этого слова.
 
@@ -11,14 +11,28 @@ import Link from "@theme/Link"
 >
 > _Wikipedia_
 
-
 > TODO: Дописать
 
 ## Ссылки
 
-<Link href="https://djangoproject.com/" title="Djangoproject" />
+<Link
+  href="https://djangoproject.com/"
+  title="Djangoproject"
+  caption="Основная страница проекта"
+  image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.djangoproject.com%2Fm%2Fimg%2Flogos%2Fdjango-logo-positive.png&f=1&nofb=1"
+/>
 
-<Link href="https://docs.djangoproject.com/en/3.0/py-modindex/" title="Module Index" />
+<Link
+  href="https://docs.djangoproject.com/en/3.0/py-modindex/"
+  title="Module Index"
+  caption="Список модулей фреймворка"
+/>
+
+<Link
+  href="https://docs.djangoproject.com/en/3.0/ref/"
+  title="API Reference"
+  caption="Справка по API. Где какие функции, что они получают, и возвращают."
+/>
 
 ## Состав фреймворка
 
@@ -26,6 +40,6 @@ import Link from "@theme/Link"
 - `django.apps` - Хранит и предоставляет информацию о приложениях (`applications`)
 - `django.conf` - Пакет для работы с конфигурацией проекта
 - `django.contrib.*` - Приложения входящие в состав фреймворка
-- `django.db` - Пакеты для работы с базами данных
+- `django.db` - Пакеты для работы с базами данных и `ORM`
 - `django.http` - Пакет отвечающий за... как понятно из названия `HTTP` протокол.
 - `django.view` - Вспомогательные функции для обработчиков запроса
