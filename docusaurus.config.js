@@ -14,11 +14,14 @@ module.exports = {
   organizationName: "vlzh",
   projectName: "Python basics course | IT-RUN",
   themeConfig: {
+    prism: {
+      theme: require("prism-react-renderer/themes/dracula"),
+    },
     navbar: {
       title: "Python Basics Course | IT-RUN",
       logo: {
         alt: "",
-        src: "img/logo.png"
+        src: "img/logo.png",
       },
       links: [
         { to: "docs/intro", label: "Docs", position: "left" },
@@ -27,9 +30,9 @@ module.exports = {
         {
           href: "https://github.com/vlzh/course-python-basics",
           label: "GitHub",
-          position: "right"
-        }
-      ]
+          position: "right",
+        },
+      ],
     },
     footer: {
       style: "dark",
@@ -54,14 +57,14 @@ module.exports = {
         // href: "https://opensource.facebook.com/"
       },
       // Please do not remove the credits, help to publicize Docusaurus :)
-      copyright: `Copyright © ${new Date().getFullYear()}`
+      copyright: `Copyright © ${new Date().getFullYear()}`,
     },
     algolia: {
       apiKey: "98ff9e4b7db0171d6e42450e1a49d62b",
       appId: "STW7H9SYB2",
       indexName: "course-python-basics",
-      algoliaOptions: {}
-    }
+      algoliaOptions: {},
+    },
   },
   presets: [
     [
@@ -70,13 +73,13 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
-            "https://github.com/vlzh/course-python-basics/edit/master/docs"
+            "https://github.com/vlzh/course-python-basics/edit/master/docs",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css")
-        }
-      }
-    ]
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      },
+    ],
   ],
-  plugins: ["@docusaurus/plugin-ideal-image"]
+  plugins: ["@docusaurus/plugin-ideal-image"],
 };

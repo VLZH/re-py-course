@@ -1,0 +1,194 @@
+---
+title: Строки
+id: strings
+---
+
+## Строки
+
+Строки это не изменяемыц тип данных
+
+Для объявления строк в python используются:
+
+- `"some string"` - двойные кавычки
+- `'some string'` - одинарные кавычки
+- `"""some string"""` - двойные-тройные кавычки
+- `'''some string'''` - одинарные-тройные кавычки
+
+В тройных кавычках вы можете переносить текст на следующую строчку, Т.е 'muliline strings'
+
+```python
+some_multiline_stirng = """
+One
+Two
+Three
+"""
+```
+
+Если в коде встречается несколько строчных литералов друг за другом, то они объединяются
+
+```python
+string = "string1" "string2"
+print(string) # string1string2
+```
+
+Над строками можно совершать математические операции
+
+```python
+
+s1 = "Hello"
+s2 = "World"
+
+
+# Конкатенация строк (объединение)
+s3 = s1 + s2
+print(s3) # HelloWorld
+s4 = s1 + " " + s2
+print(s4) # Hello World
+#
+print(s1 * 3) # HelloHelloHello
+
+```
+
+> Когда-нибудь у вас возникнет вопрос, а как написать многострочный текст, без отступов слева, это можно будет сделать так:
+>
+> ```python
+> SOME_MESSAGE_STRING = (
+>     "Hello {name}\n"
+>     "Your account balance: {balance}\n"
+>     "Good luck!"
+> )
+> ```
+>
+> А вот второй способ:
+>
+> ```python
+> from textwrap import dedent
+> SOME_MESSAGE_STRING = dedent(f"""\
+>     Hello {name}
+>     Your account balance: {balance}
+>     Good luck!
+> """)
+> ```
+
+### Использование класса `str`
+
+Если у нас есть последовательность байт, допустим прочитанных из файла, и мы хотим перевети их в строку, мы можем воспользоваться классом `str`
+
+```python
+some_bytes = b"red orange yellow"
+some_string = str(some_bytes, 'utf-8')
+```
+
+Но как видите из кода вы долны так же указать кодировку вторым параметром. Вы так же будете часто использовать класс `str`, когда вам понадобится получить текстовое представление объекта. У объектов имеется магический метод `__str__` который должен возвращать строку, но есть загвоздка в том, что **прямое обращение к магическим методам не приветсвуется**, в этом случае вы можете воспользоваться классом `str`
+
+```python
+class Animal:
+    def __str__(self):
+        return "Animal class"
+animal_instance = Animal()
+print(str(animal_instance)) # "Animal class"
+```
+
+### Функция `repr`
+
+Нужна чтобы вывести питоновское представление объекта, используется для дебагинга
+
+```python
+class Foo:
+    def __repr__(self):
+        return "Foo<>"
+foo = Foo()
+repr(foo)
+```
+
+### Форматирование строк
+
+Очень частой задачей является подставлять значения в строки, в `Python 3.6` появился новый способ это делать, но прежде чем говорить про `f-strings`, стоит вспомнить пердыдущие способы.
+
+#### Cтарые способы форматирования строк
+
+- Используя старый синтаксис (`fprint`)
+
+  ```python
+  "%s:%s" % ("a", "b") # 'a:b'
+  "%x:%x" % (1, 15) # '1:f'
+  ```
+
+  <Link
+    title="printf-style String Formatting - Python documentation"
+    href="https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting"
+  />
+
+- Используя метод строк `format`
+
+  ```python
+  "{}:{}".format("a", "b") # 'a:b'
+  "{:0b}:{}".format(300, "b") # '100101100:b'
+  ```
+
+  <Link
+    title="string - Python documentation"
+    href="https://docs.python.org/3/library/string.html"
+    caption="На этой странице вы найдете всевозможную информацию об форматировании строк... но чтиво конечно не из приятных"
+  />
+
+#### F-strings
+
+В последних версиях `python` вы наконец можете удобнее подставлять значеÐ½ия с троки использую синтаксис `f-strings`, выглядит это следующим образом:
+
+```python
+first_name = "Jonh"
+last_name = "Smith"
+print("{first_name} {last_name}") # John Smith
+```
+
+<Link
+  title="Formatted string literals - Python documentation"
+  href="https://docs.python.org/3/reference/lexical_analysis.html#formatted-string-literals"
+/>
+
+### Методы строк
+
+Мы перечислим только некоторые из методов которые часто используются на практике:
+
+- `str.encode() -> bytes` - перевести строку в `bytes` _"байтовую строчку"_
+
+  ```python
+  some_str = "some string"
+  print(some_str.encode()) # b'some string'
+  ```
+
+- `str.split(separator: str, [limit: int]) -> List[str]` - разбить строку на подстроки
+  ```python
+  some_str = "a:b:c"
+  print(some_str.split(":"))
+  ```
+- `str.lower() -> str` - привести символы к нижнему регистру
+  ```python
+  some_str = "ABC"
+  print(some_str.lower()) # abc
+  ```
+- `str.upper() -> str` - привести символы к верхнему регистру
+- `str.format(*args, **kwargs) -> str` - Подставить в места подстановки значения
+
+Остальные примеры:
+
+```python
+print("  foo bar   ".strip()) # 'foo bar'
+print("foo bar".replace("b", "_")) # 'foo _ar'
+# Изменение регистра
+print("foo bar".title())    # 'Foo Bar'
+print("Foo Bar".swapcase()) # 'fOO bAR'
+# Выравнивание
+print("foo bar".center(18)) # '     foo bar      '
+print("foo bar".ljust(18))  #  'foo bar           '
+print("foo bar".rjust(18))  #  '           foo bar'
+```
+
+#### Официальная документация
+
+<Link
+  title="str - Python documentation"
+  href="https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str"
+  caption="За информацией о других методах обращайтесь по этой ссылке"
+/>

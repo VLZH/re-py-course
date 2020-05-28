@@ -9,8 +9,15 @@ module.exports = {
       {
         type: "category",
         label: "Типы",
-        items: ["python/primitive_types", "python/sequances", "python/dicts"],
+        items: [
+          "python/primitive_types",
+          "python/sequances",
+          "python/strings",
+          "python/dicts",
+        ],
       },
+      "python/scopes",
+      "python/exceptions",
       "python/fp",
       "python/modules_and_packets",
       "python/classes",
@@ -48,3 +55,4 @@ module.exports = {
     ],
   },
 };
+

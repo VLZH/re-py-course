@@ -223,14 +223,14 @@ print(result) # 1, 3, 9, 16
 
 ```python
 SOME_LIST = [1, 2, 3, 4]
-print([i ** for i in SOME_LIST]) # 1, 3, 9, 16
+print([i ** 2 for i in SOME_LIST]) # 1, 3, 9, 16
 ```
 
 Давайте еще проигнорируем строки в исходной строке
 
 ```python
 SOME_LIST = [1, 2, "str", 3, 4]
-print([i ** for i in SOME_LIST if type(i) == int]) # 1, 3, 9, 16
+print([i ** 2 for i in SOME_LIST if type(i) == int]) # 1, 3, 9, 16
 ```
 
 ### Live example
@@ -289,35 +289,3 @@ for i in range(0, 10):
 
 ```
  
-### Оператор `in/not in`
-Позволяет проверить нахождение элементов в последовательности. Например узнать.. содержит ли список ["Hello", "world"] строку world.
-
-```python
-l = ["Hello", "world"]
-print("Hello" in l) # True
-print("Olleh" in l) # False
-s = "very very long string"
-print("very" in s) # True
-```
-
-```python
-WORDS = [
-    "Но",
-    "как",
-    "видите",
-    "из",
-    "кода",
-    "вы",
-    "долны",
-    "так",
-    "же",
-    "указать",
-    "кодировку",
-]
-word = input("Какое слово вы ищите?")
-if word in WORDS:
-    print("Введенное вами слово присутствует")
-else:
-    print("Такого слова нет")
-```
-
