@@ -1,6 +1,6 @@
 module.exports = {
   docsSidebar: {
-    Общее: ["intro", "general/programs", "general/types", "general/languages"],
+    Общее: ["intro", "general/programs", "general/types", "general/languages", 'general/html_css'],
     Python: [
       "python/syntax",
       "python/operators",
@@ -52,6 +52,7 @@ module.exports = {
       "homeworks/linkshorter",
       "homeworks/blog",
       "homeworks/final_project_requirements",
+      "homeworks/firstpage",
     ],
   },
 };
