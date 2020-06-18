@@ -6,6 +6,8 @@ module.exports = {
       "python/operators",
       "python/statements",
       "python/functions",
+      "python/scopes",
+      "python/decorators",
       {
         type: "category",
         label: "Типы",
@@ -16,7 +18,6 @@ module.exports = {
           "python/dicts",
         ],
       },
-      "python/scopes",
       "python/exceptions",
       "python/fp",
       "python/modules_and_packets",

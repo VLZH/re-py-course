@@ -2,3 +2,61 @@
 id: wsgi
 title: Спецификация WSGI
 ---
+
+import Link from "@theme/Link";
+import IdealImage from "@theme/IdealImage";
+
+WSGI - это не фреймворк/сервер/приложение или что-либо еще. Это спецификация описывающая взаимодействие сервера и приложения.
+
+<Link
+  title="WSGI Tutorial"
+  href="http://wsgi.tutorial.codepoint.net"
+  caption="Хороший материал на эту тему"
+  image="https://www.researchgate.net/publication/336979854/figure/fig1/AS:820611999879169@1572660555327/The-various-functional-layers-encapsulating-a-WSGI-application-and-the-technologies.png"
+/>
+
+<Link
+  title="Gunicorn"
+  href="https://gunicorn.org/"
+  caption="Самый популярный wsgi-сервер"
+  image="https://gunicorn.org/images/logo.jpg"
+/>
+
+## Взаимодействие сервер-приложение
+
+Давайте разберемся с терминологией
+
+**Сервер** - Программа которая может держать соединения с клиентами по протоколу `http/https`.
+**Приложение** - Ваша программа(_например на `Django`_) которая содержит функцию, которую надо вызывать если вы хотите чтобы программа обработала запрос.
+
+Картина выглядит примерно так:
+
+<IdealImage img={require("./wsgi/wsgi1.png")} />
+
+## Самое простое wsgi-приложение
+
+```python
+def application (
+    environ,
+    start_response
+):
+    response_body = 'Request method: %s' % environ['REQUEST_METHOD']
+    status = '200 OK'
+    response_headers = [
+        ('Content-Type', 'text/plain'),
+        ('Content-Length', str(len(response_body)))
+    ]
+    start_response(status, response_headers)
+    return [response_body]
+```
+
+Как видно, это очень простая функция, которая получает:
+
+- `environ` - словарь содержащий CGI переменные.
+  <Link
+    href="https://stackoverflow.com/questions/2089271/what-is-common-gateway-interface-cgi"
+    title="Информация о CGI"
+  />
+- `start_response` - Callback-функция, которую надо вызвать прежде чем отдать тело отвера. Функция получает первым параметром статут ответа, а вторым пары `("Http-заголовок", "Значение")`.
+
+Должна функция вернуть тело ответа.
