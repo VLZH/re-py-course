@@ -1,6 +1,6 @@
 module.exports = {
   docsSidebar: {
-    Общее: ["intro", "general/programs", "general/types", "general/languages", 'general/html_css'],
+    Общее: ["main", "general/programs", "general/types", "general/languages", 'general/html_css'],
     Python: [
       "python/syntax",
       "python/operators",

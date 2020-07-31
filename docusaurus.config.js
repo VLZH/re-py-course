@@ -13,10 +13,10 @@ module.exports = {
     navbar: {
       title: "Re: Python-Course",
       logo: {
-        alt: "",
+        alt: "Re: Python-Course",
         src: "img/logo.png",
       },
-      links: [
+      items: [
         { to: "docs/intro", label: "Docs", position: "left" },
         {
           href: "https://github.com/VLZH/re-py-course",
@@ -32,8 +32,8 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} https://github/VLZH. Built with Docusaurus🦖.`,
     },
     algolia: {
-      apiKey: "98ff9e4b7db0171d6e42450e1a49d62b",
-      appId: "STW7H9SYB2",
+      apiKey: "09b09ff88c1bdeb54ba45a0f76db60b0",
+      appId: "LLSC0F76HG",
       indexName: "re-py-course",
       algoliaOptions: {},
     },
@@ -43,6 +43,8 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
+          routeBasePath: "/",
+          homePageId: "main",
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: "https://github.com/VLZH/re-py-course",
         },
