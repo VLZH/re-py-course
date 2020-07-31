@@ -6,6 +6,7 @@ module.exports = {
   favicon: "img/logo.png",
   organizationName: "vlzh",
   projectName: "Re: Python-Course",
+  onBrokenLinks: "ignore",
   themeConfig: {
     prism: {
       theme: require("prism-react-renderer/themes/dracula"),
