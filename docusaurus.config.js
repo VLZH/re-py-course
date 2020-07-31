@@ -1,7 +1,7 @@
 module.exports = {
   title: "Re: Python-Course",
   tagline: "Python tutorial",
-  url: "https://re-js-course.vercel.app/",
+  url: "https://re-py-course.vercel.app/",
   baseUrl: "/",
   favicon: "img/logo.png",
   organizationName: "vlzh",
